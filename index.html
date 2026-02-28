@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#101010">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Agenda Minimalista - Creative & Taste</title>
+    <title>Agenda Minimalista - Willian</title>
     
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/jpeg" href="image_1ffae0.jpg">
     <link rel="apple-touch-icon" href="image_1ffae0.jpg">
-    <link rel="icon" href="image_1ffae0.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,14 +17,16 @@
 
     <style>
         :root {
-            --bg: #101010; /* Cinza Grafite Quase Preto */
-            --card: #181818; /* Painéis sutis */
-            --accent: #b08d57; /* Dourado Ocre Sofisticado */
-            --text: #e0e0e0; /* Branco Gelo Confortável */
+            --bg: #101010;
+            --card: #181818;
+            --accent: #b08d57;
+            --text: #e0e0e0;
             --text-secondary: #888888;
-            --border: #252525; /* Bordas muito finas */
-            --urgent: #cc3333; /* Vermelho discreto */
-            --concluido: #404040;
+            --border: #252525;
+            --urgent: #cc3333;
+            --holiday: #ff4444;
+            --scheduled-bg: rgba(176, 141, 87, 0.15);
+            --blue: #2196f3;
         }
 
         * { box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
@@ -32,141 +34,87 @@
 
         .layout { display: grid; grid-template-columns: 320px 1fr 300px; gap: 20px; max-width: 1600px; margin: auto; }
 
-        /* Painéis Minimalistas */
-        .box { 
-            background: var(--card); 
-            border: 1px solid var(--border); 
-            border-radius: 8px; /* Cantos suaves */
-            padding: 20px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2); 
-            transition: all 0.2s ease;
-        }
+        /* Painéis */
+        .box { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        h3 { margin-top: 0; color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 15px; }
 
-        h3 { 
-            margin-top: 0; 
-            color: var(--accent); 
-            font-size: 0.9rem; 
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            border-bottom: 1px solid var(--border); 
-            padding-bottom: 12px; 
-            display: flex; align-items: center; gap: 10px;
+        /* Formulário */
+        input, textarea, select, .btn-main { 
+            width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 6px; 
+            border: 1px solid var(--border); background: rgba(255, 255, 255, 0.03); 
+            color: var(--text); outline: none; font-size: 0.9rem;
         }
+        .btn-main { background: var(--accent); color: #101010; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; }
+        .btn-main:hover { opacity: 0.9; }
+        
+        .btn-notif { background: var(--blue); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; font-weight: bold; margin-top: 5px; }
 
-        /* Inputs e Botões Minimalistas */
-        input, textarea, select, button { 
-            width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 4px; 
-            border: 1px solid var(--border); 
-            background: rgba(255, 255, 255, 0.03); 
-            color: var(--text); 
-            outline: none;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-        input:focus, textarea:focus, select:focus { 
-            border-color: var(--accent); 
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Botão Premium */
-        button { 
-            background: var(--accent); 
-            color: #101010; 
-            font-weight: 600; 
-            border: none; 
-            cursor: pointer; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.85rem;
-            transition: opacity 0.2s;
-        }
-        button:hover { opacity: 0.9; }
-        button:active { transform: scale(0.98); }
-
-        /* Calendário Limpo */
+        /* Calendário */
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
         .day { 
-            background: transparent; padding: 10px; min-height: 80px; border-radius: 4px; 
+            background: transparent; padding: 10px; min-height: 85px; border-radius: 4px; 
             cursor: pointer; position: relative; font-size: 0.9rem; border: 1px solid transparent;
-            color: var(--text-secondary);
-            transition: all 0.2s;
-        }
-        .day:hover { background: rgba(255,255,255,0.03); }
-        .today { border: 1px solid var(--accent) !important; color: var(--accent); }
-        .selected { 
-            background: rgba(176, 141, 87, 0.1) !important; 
-            border: 1px solid var(--accent) !important; 
-            color: var(--accent);
-            font-weight: 600;
+            color: var(--text-secondary); transition: all 0.2s;
         }
         
+        /* CORES DO CALENDÁRIO */
+        .holiday-day { color: var(--holiday) !important; font-weight: 600; }
+        .scheduled-day { background: var(--scheduled-bg) !important; color: var(--text); }
+        .urgent-day { border: 1px solid var(--urgent) !important; box-shadow: inset 0 0 5px rgba(204, 51, 51, 0.2); }
+        .today { border-bottom: 3px solid var(--accent) !important; }
+        .selected { background: rgba(176, 141, 87, 0.3) !important; border: 1px solid var(--accent) !important; color: var(--accent); }
+
         .dot { height: 4px; width: 4px; background: var(--accent); border-radius: 50%; position: absolute; bottom: 8px; right: 8px; }
+        .holiday-label { font-size: 0.6rem; color: var(--holiday); display: block; margin-top: 4px; line-height: 1; }
 
-        /* Lista de Compromissos Minimalista */
-        .item { 
-            background: rgba(255, 255, 255, 0.02); padding: 15px; border-radius: 4px; margin-bottom: 12px; 
-            display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--border);
-            transition: 0.2s;
-        }
-        .item:hover { border-color: #303030; }
-        
-        .item.urgente { border-left: 3px solid var(--urgent); }
-        .item.concluido { opacity: 0.2; text-decoration: line-through; filter: grayscale(1); }
-        
-        .item-content { color: var(--text); font-size: 0.95rem; }
-        .item-time-prioridade { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-secondary); }
-        .item-time { color: var(--accent); font-weight: 600; }
+        /* Lista */
+        .item { background: rgba(255, 255, 255, 0.02); padding: 15px; border-radius: 6px; margin-bottom: 12px; border: 1px solid var(--border); transition: 0.2s; }
+        .item.urgente { border-left: 4px solid var(--urgent); }
+        .item.concluido { opacity: 0.25; text-decoration: line-through; }
+        .item-time { color: var(--accent); font-weight: 600; font-size: 0.8rem; }
+        .item-obs { font-size: 0.8rem; color: #777; margin-top: 5px; font-style: italic; }
 
-        .btn-check { width: auto; background: none; color: var(--accent); border: 1px solid var(--accent); padding: 4px 8px; font-size: 0.75rem; margin: 0; }
-        .btn-check:hover { background: var(--accent); color: #101010; }
-
-        #notasArea { height: 180px; resize: none; border-style: dashed; }
-
-        /* Responsividade para Celular */
-        @media (max-width: 1000px) { 
-            .layout { grid-template-columns: 1fr; }
-            .day { min-height: 60px; padding: 5px; }
-        }
+        @media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <div class="layout">
     <div class="box">
-        <h3>➕ Novo Registro</h3>
+        <h3>➕ NOVO REGISTRO</h3>
         <input type="date" id="data">
         <input type="time" id="hora">
-        <input type="text" id="titulo" placeholder="Cliente ou Serviço">
+        <input type="text" id="titulo" placeholder="Título do Evento">
         <select id="prioridade">
-            <option value="normal">👤 Pessoal</option>
-            <option value="importante">📸 Foto_Pro</option>
-            <option value=" burger">🍔 Mão na Brasa</option>
-            <option value="video">🎥 Vídeo / Reels</option>
-            <option value="urgente">🔥 Urgente</option>
+            <option value="pessoal">👤 PESSOAL</option>
+            <option value="foto">📸 FOTO_PRO</option>
+            <option value="burger">🍔 MÃO NA BRASA</option>
+            <option value="video">🎥 VÍDEO / REELS</option>
+            <option value="urgente">🔥 URGENTE / CRÍTICO</option>
         </select>
-        <textarea id="obs" placeholder="Detalhes importantes..."></textarea>
-        <button onclick="adicionar()">Salvar na Agenda</button>
-        <button id="installBtn" style="display:none; margin-top:10px; background:#444; color:white;">📥 Instalar App</button>
+        <textarea id="obs" placeholder="Notas e Observações..."></textarea>
+        <button class="btn-main" onclick="adicionar()">Salvar Agenda</button>
         
+        <button class="btn-notif" onclick="ativarNotificacoes()">🔔 ATIVAR ALERTAS DO SISTEMA</button>
+
         <div style="margin-top: 25px;">
-            <h3>📝 Notas Rápidas</h3>
-            <textarea id="notasArea" placeholder="Anotações voláteis..." oninput="salvarNotas()"></textarea>
+            <h3>📝 NOTAS RÁPIDAS</h3>
+            <textarea id="notasArea" style="height: 150px; border-style: dashed;" placeholder="Rascunhos rápidos..." oninput="salvarNotas()"></textarea>
         </div>
     </div>
 
     <div class="box">
         <div class="cal-header">
-            <button onclick="mudarMes(-1)" style="width: auto; background:none; color:var(--text)">◀</button>
-            <h2 id="mesAno" style="margin:0; font-size: 1rem; text-transform:uppercase; letter-spacing:1px;"></h2>
-            <button onclick="mudarMes(1)" style="width: auto; background:none; color:var(--text)">▶</button>
+            <button class="btn-main" style="width:auto; padding:5px 15px;" onclick="mudarMes(-1)">◀</button>
+            <h2 id="mesAno" style="margin:0; font-size: 1rem; letter-spacing: 1px;"></h2>
+            <button class="btn-main" style="width:auto; padding:5px 15px;" onclick="mudarMes(1)">▶</button>
         </div>
         <div class="grid" id="calendario"></div>
     </div>
 
     <div class="box">
-        <h3 id="tituloLista">📅 Compromissos do Dia</h3>
+        <h3 id="tituloLista">📅 OPERAÇÕES DO DIA</h3>
         <div id="listaTarefas"></div>
     </div>
 </div>
@@ -181,32 +129,14 @@
     let anoAtual = hoje.getFullYear();
     let dataSelecionada = hoje.toISOString().split('T')[0];
 
+    const feriados = {
+        "01-01": "Ano Novo", "21-04": "Tiradentes", "01-05": "Trabalho",
+        "07-09": "Independência", "12-10": "Aparecida", "02-11": "Finados",
+        "15-11": "República", "20-11": "C. Negra", "25-12": "Natal"
+    };
+
     document.getElementById("notasArea").value = notas;
     document.getElementById("data").value = dataSelecionada;
-
-    // Registro do Service Worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').catch(err => console.log("Erro SW:", err));
-    }
-
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = 'block';
-    });
-
-    installBtn.addEventListener('click', () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choice) => {
-                if (choice.outcome === 'accepted') installBtn.style.display = 'none';
-                deferredPrompt = null;
-            });
-        }
-    });
 
     function salvar() {
         localStorage.setItem("agendaPessoal", JSON.stringify(agenda));
@@ -218,24 +148,45 @@
         localStorage.setItem("notasPessoais", document.getElementById("notasArea").value);
     }
 
+    function ativarNotificacoes() {
+        if (!("Notification" in window)) alert("Navegador não suporta alertas.");
+        else {
+            Notification.requestPermission().then(p => {
+                if(p === "granted") alert("Alertas Ativados com Sucesso!");
+            });
+        }
+    }
+
     function adicionar() {
         const data = document.getElementById("data").value;
         const titulo = document.getElementById("titulo").value;
-        if(!data || !titulo) return alert("Preencha data e título!");
-        agenda.push({ id: Date.now(), data, hora: document.getElementById("hora").value, titulo, prioridade: document.getElementById("prioridade").value, obs: document.getElementById("obs").value, concluido: false, notificado: false });
+        if(!data || !titulo) return alert("Preencha o título!");
+        
+        agenda.push({
+            id: Date.now(),
+            data,
+            hora: document.getElementById("hora").value,
+            titulo,
+            prioridade: document.getElementById("prioridade").value,
+            obs: document.getElementById("obs").value,
+            concluido: false,
+            notificado: false
+        });
         salvar();
         document.getElementById("titulo").value = "";
-        document.getElementById("obs").value = "";
     }
 
     function toggleConcluir(id) {
-        let tarefa = agenda.find(a => a.id === id);
-        tarefa.concluido = !tarefa.concluido;
+        let t = agenda.find(a => a.id === id);
+        t.concluido = !t.concluido;
         salvar();
     }
 
     function excluir(id) {
-        if(confirm("Deseja apagar este lembrete?")) { agenda = agenda.filter(a => a.id !== id); salvar(); }
+        if(confirm("Remover registro?")) {
+            agenda = agenda.filter(a => a.id !== id);
+            salvar();
+        }
     }
 
     function mudarMes(v) { 
@@ -247,20 +198,35 @@
 
     function gerarCalendario() {
         const cal = document.getElementById("calendario");
-        const nomes = ["JAN","FEV","MAR","ABR","MAI","JUN","JUL","AGO","SET","OUT","NOV","DEZ"];
-        document.getElementById("mesAno").innerText = `${nomes[mesAtual]} [${anoAtual}]`;
+        const nomes = ["JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO"];
+        document.getElementById("mesAno").innerText = `${nomes[mesAtual]} ${anoAtual}`;
         cal.innerHTML = "";
+        
         const primDia = new Date(anoAtual, mesAtual, 1).getDay();
         const diasNoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+        
         for (let i = 0; i < primDia; i++) cal.innerHTML += "<div></div>";
+        
         for (let dia = 1; dia <= diasNoMes; dia++) {
             const dataStr = `${anoAtual}-${String(mesAtual+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
-            const temCoisa = agenda.some(a => a.data === dataStr && !a.concluido);
+            const refFeriado = `${String(mesAtual+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+            
+            const tarefasDia = agenda.filter(a => a.data === dataStr);
+            const temUrgente = tarefasDia.some(a => a.prioridade === 'urgente' && !a.concluido);
+            const feriadoNome = feriados[refFeriado];
+
             const div = document.createElement("div");
-            div.className = "day" + (dataStr === dataSelecionada ? " selected" : "");
+            div.className = "day";
+            if (dataStr === dataSelecionada) div.classList.add("selected");
             if (dataStr === hoje.toISOString().split('T')[0]) div.classList.add("today");
+            if (feriadoNome) div.classList.add("holiday-day");
+            if (tarefasDia.length > 0) div.classList.add("scheduled-day");
+            if (temUrgente) div.classList.add("urgent-day");
+
             div.innerHTML = `<b>${dia}</b>`;
-            if (temCoisa) div.innerHTML += `<span class="dot"></span>`;
+            if (feriadoNome) div.innerHTML += `<span class="holiday-label">${feriadoNome.split(' ')[0]}</span>`;
+            if (tarefasDia.length > 0) div.innerHTML += `<span class="dot"></span>`;
+            
             div.onclick = () => { dataSelecionada = dataStr; gerarCalendario(); mostrarDia(dataStr); };
             cal.appendChild(div);
         }
@@ -269,35 +235,46 @@
     function mostrarDia(data) {
         const lista = document.getElementById("listaTarefas");
         const itens = agenda.filter(a => a.data === data).sort((a,b) => a.hora.localeCompare(b.hora));
-        document.getElementById("tituloLista").innerHTML = `📅 Dia ${data.split("-").reverse().join(".")}`;
-        lista.innerHTML = itens.length ? "" : "<p style='text-align:center; color:#555; font-size:0.8rem;'>Dia Livre</p>";
+        const feriado = feriados[data.substring(5)];
+
+        document.getElementById("tituloLista").innerHTML = `📅 ${data.split("-").reverse().join("/")}`;
+        lista.innerHTML = "";
+
+        if (feriado) {
+            lista.innerHTML += `<div style="color:var(--holiday); font-size:0.75rem; border:1px solid var(--holiday); padding:8px; border-radius:4px; text-align:center; margin-bottom:15px; font-weight:bold;">${feriado.toUpperCase()}</div>`;
+        }
+
+        if (itens.length === 0) {
+            lista.innerHTML += "<p style='text-align:center; color:#444; font-size:0.8rem; margin-top:20px;'>SEM COMPROMISSOS</p>";
+            return;
+        }
+
         itens.forEach(i => {
             lista.innerHTML += `
                 <div class="item ${i.prioridade} ${i.concluido ? 'concluido' : ''}">
-                    <div class="item-time-prioridade">
+                    <div style="display:flex; justify-content:space-between;">
                         <span class="item-time">${i.hora || '--:--'}</span>
-                        <span>${i.prioridade.toUpperCase()}</span>
+                        <span style="font-size:0.7rem; color:var(--accent); text-transform:uppercase;">${i.prioridade}</span>
                     </div>
-                    <div class="item-content">
-                        <b>${i.titulo}</b>
-                        ${i.obs ? `<div style="font-size:0.8rem; color:#888; margin-top:4px;">${i.obs}</div>` : ''}
-                    </div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                        <button class="btn-check" onclick="toggleConcluir(${i.id})">${i.concluido ? '🔙 REABRIR' : '✅ CONCLUIR'}</button>
-                        <button onclick="excluir(${i.id})" style="width:auto; background:none; color:var(--urgent); border:none; padding:4px; font-size:0.8rem;">🗑️ APAGAR</button>
+                    <div style="margin-top:5px;"><b>${i.titulo}</b></div>
+                    ${i.obs ? `<div class="item-obs">${i.obs}</div>` : ''}
+                    <div style="display:flex; gap:10px; margin-top:10px;">
+                        <button onclick="toggleConcluir(${i.id})" style="padding:5px 10px; border-radius:4px; border:none; background:var(--accent); cursor:pointer;">${i.concluido ? '🔙' : '✅'}</button>
+                        <button onclick="excluir(${i.id})" style="padding:5px 10px; border-radius:4px; border:1px solid var(--urgent); background:none; color:var(--urgent); cursor:pointer;">🗑️</button>
                     </div>
                 </div>`;
         });
     }
 
-    // Sistema de Notificações
+    // Monitor de Notificações
     setInterval(() => {
         const agora = new Date();
-        const horaAtual = agora.getHours().toString().padStart(2, '0') + ":" + agora.getMinutes().toString().padStart(2, '0');
-        const dataHoje = agora.toISOString().split('T')[0];
+        const hA = agora.getHours().toString().padStart(2, '0') + ":" + agora.getMinutes().toString().padStart(2, '0');
+        const dA = agora.toISOString().split('T')[0];
+
         agenda.forEach(t => {
-            if (!t.concluido && !t.notificado && t.data === dataHoje && t.hora === horaAtual) {
-                if (Notification.permission === "granted") new Notification("⏰ Lembrete: " + t.titulo);
+            if (!t.concluido && !t.notificado && t.data === dA && t.hora === hA) {
+                if (Notification.permission === "granted") new Notification("⏰ AGORA: " + t.titulo);
                 document.getElementById("notifSound").play().catch(() => {});
                 t.notificado = true;
                 localStorage.setItem("agendaPessoal", JSON.stringify(agenda));
