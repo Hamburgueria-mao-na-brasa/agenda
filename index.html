@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#101010">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Agenda Minimalista - Willian</title>
+    <title>Agenda Pro - Willian</title>
     
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/jpeg" href="image_1ffae0.jpg">
@@ -29,51 +29,43 @@
             --blue: #2196f3;
         }
 
-        * { box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+        * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { margin: 0; background: var(--bg); color: var(--text); padding: 15px; }
 
         .layout { display: grid; grid-template-columns: 320px 1fr 300px; gap: 20px; max-width: 1600px; margin: auto; }
 
-        /* Painéis */
         .box { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         h3 { margin-top: 0; color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 15px; }
 
-        /* Formulário */
         input, textarea, select, .btn-main { 
             width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 6px; 
             border: 1px solid var(--border); background: rgba(255, 255, 255, 0.03); 
             color: var(--text); outline: none; font-size: 0.9rem;
         }
-        .btn-main { background: var(--accent); color: #101010; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; }
-        .btn-main:hover { opacity: 0.9; }
-        
-        .btn-notif { background: var(--blue); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; font-weight: bold; margin-top: 5px; }
+        .btn-main { background: var(--accent); color: #101010; font-weight: 600; border: none; cursor: pointer; }
+        .btn-notif { background: var(--blue); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; width: 100%; margin-top: 5px; }
 
-        /* Calendário */
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
         .day { 
             background: transparent; padding: 10px; min-height: 85px; border-radius: 4px; 
             cursor: pointer; position: relative; font-size: 0.9rem; border: 1px solid transparent;
-            color: var(--text-secondary); transition: all 0.2s;
+            color: var(--text-secondary); transition: 0.2s;
         }
         
-        /* CORES DO CALENDÁRIO */
         .holiday-day { color: var(--holiday) !important; font-weight: 600; }
         .scheduled-day { background: var(--scheduled-bg) !important; color: var(--text); }
-        .urgent-day { border: 1px solid var(--urgent) !important; box-shadow: inset 0 0 5px rgba(204, 51, 51, 0.2); }
+        .urgent-day { border: 1px solid var(--urgent) !important; }
         .today { border-bottom: 3px solid var(--accent) !important; }
         .selected { background: rgba(176, 141, 87, 0.3) !important; border: 1px solid var(--accent) !important; color: var(--accent); }
 
         .dot { height: 4px; width: 4px; background: var(--accent); border-radius: 50%; position: absolute; bottom: 8px; right: 8px; }
-        .holiday-label { font-size: 0.6rem; color: var(--holiday); display: block; margin-top: 4px; line-height: 1; }
+        .holiday-label { font-size: 0.6rem; color: var(--holiday); display: block; margin-top: 4px; }
 
-        /* Lista */
-        .item { background: rgba(255, 255, 255, 0.02); padding: 15px; border-radius: 6px; margin-bottom: 12px; border: 1px solid var(--border); transition: 0.2s; }
+        .item { background: rgba(255, 255, 255, 0.02); padding: 15px; border-radius: 6px; margin-bottom: 12px; border: 1px solid var(--border); }
         .item.urgente { border-left: 4px solid var(--urgent); }
         .item.concluido { opacity: 0.25; text-decoration: line-through; }
         .item-time { color: var(--accent); font-weight: 600; font-size: 0.8rem; }
-        .item-obs { font-size: 0.8rem; color: #777; margin-top: 5px; font-style: italic; }
 
         @media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } }
     </style>
@@ -91,52 +83,43 @@
             <option value="foto">📸 FOTO_PRO</option>
             <option value="burger">🍔 MÃO NA BRASA</option>
             <option value="video">🎥 VÍDEO / REELS</option>
-            <option value="urgente">🔥 URGENTE / CRÍTICO</option>
+            <option value="urgente">🔥 URGENTE</option>
         </select>
-        <textarea id="obs" placeholder="Notas e Observações..."></textarea>
+        <textarea id="obs" placeholder="Notas..."></textarea>
         <button class="btn-main" onclick="adicionar()">Salvar Agenda</button>
+        <button class="btn-notif" onclick="ativarNotificacoes()">🔔 ATIVAR ALERTAS (1H ANTES + HORA)</button>
         
-        <button class="btn-notif" onclick="ativarNotificacoes()">🔔 ATIVAR ALERTAS DO SISTEMA</button>
-
-        <div style="margin-top: 25px;">
+        <div style="margin-top: 20px;">
             <h3>📝 NOTAS RÁPIDAS</h3>
-            <textarea id="notasArea" style="height: 150px; border-style: dashed;" placeholder="Rascunhos rápidos..." oninput="salvarNotas()"></textarea>
+            <textarea id="notasArea" style="height: 120px; border-style: dashed;" oninput="salvarNotas()"></textarea>
         </div>
     </div>
 
     <div class="box">
         <div class="cal-header">
             <button class="btn-main" style="width:auto; padding:5px 15px;" onclick="mudarMes(-1)">◀</button>
-            <h2 id="mesAno" style="margin:0; font-size: 1rem; letter-spacing: 1px;"></h2>
+            <h2 id="mesAno" style="margin:0; font-size: 1rem;"></h2>
             <button class="btn-main" style="width:auto; padding:5px 15px;" onclick="mudarMes(1)">▶</button>
         </div>
         <div class="grid" id="calendario"></div>
     </div>
 
     <div class="box">
-        <h3 id="tituloLista">📅 OPERAÇÕES DO DIA</h3>
+        <h3 id="tituloLista">📅 OPERAÇÕES</h3>
         <div id="listaTarefas"></div>
     </div>
 </div>
 
-<audio id="notifSound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"></audio>
+<audio id="notifSound" src="https://assets.mixkit.co/active_storage/sfx/995/995-preview.mp3" preload="auto"></audio>
 
 <script>
     let agenda = JSON.parse(localStorage.getItem("agendaPessoal")) || [];
-    let notas = localStorage.getItem("notasPessoais") || "";
     let hoje = new Date();
     let mesAtual = hoje.getMonth();
     let anoAtual = hoje.getFullYear();
     let dataSelecionada = hoje.toISOString().split('T')[0];
 
-    const feriados = {
-        "01-01": "Ano Novo", "21-04": "Tiradentes", "01-05": "Trabalho",
-        "07-09": "Independência", "12-10": "Aparecida", "02-11": "Finados",
-        "15-11": "República", "20-11": "C. Negra", "25-12": "Natal"
-    };
-
-    document.getElementById("notasArea").value = notas;
-    document.getElementById("data").value = dataSelecionada;
+    const feriados = { "01-01": "Ano Novo", "21-04": "Tiradentes", "01-05": "Trabalho", "07-09": "Independência", "12-10": "Aparecida", "02-11": "Finados", "15-11": "República", "20-11": "C. Negra", "25-12": "Natal" };
 
     function salvar() {
         localStorage.setItem("agendaPessoal", JSON.stringify(agenda));
@@ -144,56 +127,19 @@
         mostrarDia(dataSelecionada);
     }
 
-    function salvarNotas() {
-        localStorage.setItem("notasPessoais", document.getElementById("notasArea").value);
-    }
+    function salvarNotas() { localStorage.setItem("notasPessoais", document.getElementById("notasArea").value); }
 
     function ativarNotificacoes() {
-        if (!("Notification" in window)) alert("Navegador não suporta alertas.");
-        else {
-            Notification.requestPermission().then(p => {
-                if(p === "granted") alert("Alertas Ativados com Sucesso!");
-            });
-        }
+        Notification.requestPermission().then(p => { if(p === "granted") alert("Alertas de 1 hora e Horário Real ativos!"); });
     }
 
     function adicionar() {
-        const data = document.getElementById("data").value;
-        const titulo = document.getElementById("titulo").value;
-        if(!data || !titulo) return alert("Preencha o título!");
-        
-        agenda.push({
-            id: Date.now(),
-            data,
-            hora: document.getElementById("hora").value,
-            titulo,
-            prioridade: document.getElementById("prioridade").value,
-            obs: document.getElementById("obs").value,
-            concluido: false,
-            notificado: false
-        });
+        const d = document.getElementById("data").value;
+        const t = document.getElementById("titulo").value;
+        if(!d || !t) return alert("Preencha o título!");
+        agenda.push({ id: Date.now(), data: d, hora: document.getElementById("hora").value, titulo: t, prioridade: document.getElementById("prioridade").value, obs: document.getElementById("obs").value, concluido: false, notificado: false, avisado1h: false });
         salvar();
         document.getElementById("titulo").value = "";
-    }
-
-    function toggleConcluir(id) {
-        let t = agenda.find(a => a.id === id);
-        t.concluido = !t.concluido;
-        salvar();
-    }
-
-    function excluir(id) {
-        if(confirm("Remover registro?")) {
-            agenda = agenda.filter(a => a.id !== id);
-            salvar();
-        }
-    }
-
-    function mudarMes(v) { 
-        mesAtual += v; 
-        if(mesAtual > 11) { mesAtual = 0; anoAtual++; }
-        if(mesAtual < 0) { mesAtual = 11; anoAtual--; }
-        gerarCalendario(); 
     }
 
     function gerarCalendario() {
@@ -201,33 +147,20 @@
         const nomes = ["JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO"];
         document.getElementById("mesAno").innerText = `${nomes[mesAtual]} ${anoAtual}`;
         cal.innerHTML = "";
-        
         const primDia = new Date(anoAtual, mesAtual, 1).getDay();
         const diasNoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
-        
         for (let i = 0; i < primDia; i++) cal.innerHTML += "<div></div>";
-        
         for (let dia = 1; dia <= diasNoMes; dia++) {
-            const dataStr = `${anoAtual}-${String(mesAtual+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
-            const refFeriado = `${String(mesAtual+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
-            
-            const tarefasDia = agenda.filter(a => a.data === dataStr);
-            const temUrgente = tarefasDia.some(a => a.prioridade === 'urgente' && !a.concluido);
-            const feriadoNome = feriados[refFeriado];
-
+            const dStr = `${anoAtual}-${String(mesAtual+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+            const tarefas = agenda.filter(a => a.data === dStr);
             const div = document.createElement("div");
-            div.className = "day";
-            if (dataStr === dataSelecionada) div.classList.add("selected");
-            if (dataStr === hoje.toISOString().split('T')[0]) div.classList.add("today");
-            if (feriadoNome) div.classList.add("holiday-day");
-            if (tarefasDia.length > 0) div.classList.add("scheduled-day");
-            if (temUrgente) div.classList.add("urgent-day");
-
+            div.className = "day" + (dStr === dataSelecionada ? " selected" : "") + (dStr === hoje.toISOString().split('T')[0] ? " today" : "");
+            if (feriados[dStr.substring(5)]) div.classList.add("holiday-day");
+            if (tarefas.length > 0) div.classList.add("scheduled-day");
+            if (tarefas.some(a => a.prioridade === 'urgente' && !a.concluido)) div.classList.add("urgent-day");
             div.innerHTML = `<b>${dia}</b>`;
-            if (feriadoNome) div.innerHTML += `<span class="holiday-label">${feriadoNome.split(' ')[0]}</span>`;
-            if (tarefasDia.length > 0) div.innerHTML += `<span class="dot"></span>`;
-            
-            div.onclick = () => { dataSelecionada = dataStr; gerarCalendario(); mostrarDia(dataStr); };
+            if (tarefas.length > 0) div.innerHTML += `<span class="dot"></span>`;
+            div.onclick = () => { dataSelecionada = dStr; gerarCalendario(); mostrarDia(dStr); };
             cal.appendChild(div);
         }
     }
@@ -235,53 +168,72 @@
     function mostrarDia(data) {
         const lista = document.getElementById("listaTarefas");
         const itens = agenda.filter(a => a.data === data).sort((a,b) => a.hora.localeCompare(b.hora));
-        const feriado = feriados[data.substring(5)];
-
-        document.getElementById("tituloLista").innerHTML = `📅 ${data.split("-").reverse().join("/")}`;
-        lista.innerHTML = "";
-
-        if (feriado) {
-            lista.innerHTML += `<div style="color:var(--holiday); font-size:0.75rem; border:1px solid var(--holiday); padding:8px; border-radius:4px; text-align:center; margin-bottom:15px; font-weight:bold;">${feriado.toUpperCase()}</div>`;
-        }
-
-        if (itens.length === 0) {
-            lista.innerHTML += "<p style='text-align:center; color:#444; font-size:0.8rem; margin-top:20px;'>SEM COMPROMISSOS</p>";
-            return;
-        }
-
+        lista.innerHTML = itens.length ? "" : "<p style='text-align:center; color:#444;'>Livre</p>";
         itens.forEach(i => {
             lista.innerHTML += `
                 <div class="item ${i.prioridade} ${i.concluido ? 'concluido' : ''}">
-                    <div style="display:flex; justify-content:space-between;">
+                    <div style="display:flex; justify-content:space-between; font-size:0.8rem;">
                         <span class="item-time">${i.hora || '--:--'}</span>
-                        <span style="font-size:0.7rem; color:var(--accent); text-transform:uppercase;">${i.prioridade}</span>
+                        <span style="color:var(--accent)">${i.prioridade.toUpperCase()}</span>
                     </div>
-                    <div style="margin-top:5px;"><b>${i.titulo}</b></div>
-                    ${i.obs ? `<div class="item-obs">${i.obs}</div>` : ''}
-                    <div style="display:flex; gap:10px; margin-top:10px;">
-                        <button onclick="toggleConcluir(${i.id})" style="padding:5px 10px; border-radius:4px; border:none; background:var(--accent); cursor:pointer;">${i.concluido ? '🔙' : '✅'}</button>
-                        <button onclick="excluir(${i.id})" style="padding:5px 10px; border-radius:4px; border:1px solid var(--urgent); background:none; color:var(--urgent); cursor:pointer;">🗑️</button>
+                    <b>${i.titulo}</b>
+                    <div style="margin-top:10px;">
+                        <button onclick="toggleConcluir(${i.id})">${i.concluido ? '🔙' : '✅'}</button>
+                        <button onclick="excluir(${i.id})" style="color:var(--urgent); border:1px solid var(--urgent); background:none; margin-left:10px;">🗑️</button>
                     </div>
                 </div>`;
         });
     }
 
-    // Monitor de Notificações
+    function toggleConcluir(id) { let t = agenda.find(a => a.id === id); t.concluido = !t.concluido; salvar(); }
+    function excluir(id) { if(confirm("Apagar?")) { agenda = agenda.filter(a => a.id !== id); salvar(); } }
+    function mudarMes(v) { mesAtual += v; if(mesAtual > 11){ mesAtual=0; anoAtual++; } else if(mesAtual<0){ mesAtual=11; anoAtual--; } gerarCalendario(); }
+
+    // SISTEMA DE MONITORAMENTO (DESPERTADOR + AVISO 1H)
     setInterval(() => {
         const agora = new Date();
-        const hA = agora.getHours().toString().padStart(2, '0') + ":" + agora.getMinutes().toString().padStart(2, '0');
-        const dA = agora.toISOString().split('T')[0];
-
+        const dataHoje = agora.toISOString().split('T')[0];
+        
         agenda.forEach(t => {
-            if (!t.concluido && !t.notificado && t.data === dA && t.hora === hA) {
-                if (Notification.permission === "granted") new Notification("⏰ AGORA: " + t.titulo);
-                document.getElementById("notifSound").play().catch(() => {});
-                t.notificado = true;
+            if (t.concluido || !t.hora || t.data !== dataHoje) return;
+
+            const [h, m] = t.hora.split(':');
+            const dataTarefa = new Date();
+            dataTarefa.setHours(h, m, 0);
+
+            const diffMs = dataTarefa - agora;
+            const diffMinutos = Math.floor(diffMs / 60000);
+
+            // 1. AVISO PRÉVIO (1 HORA ANTES)
+            if (diffMinutos <= 60 && diffMinutos > 58 && !t.avisado1h) {
+                if (Notification.permission === "granted") {
+                    new Notification("⏳ FALTA 1 HORA", { body: `Lembrete: ${t.titulo} às ${t.hora}`, icon: "image_1ffae0.jpg" });
+                }
+                t.avisado1h = true;
                 localStorage.setItem("agendaPessoal", JSON.stringify(agenda));
             }
-        });
-    }, 30000);
 
+            // 2. DESPERTADOR (HORA EXATA)
+            if (diffMinutos === 0 && !t.notificado) {
+                const som = document.getElementById("notifSound");
+                som.loop = true;
+                som.play().catch(() => {});
+
+                if (Notification.permission === "granted") {
+                    new Notification("🚨 HORA MARCADA", { body: t.titulo, icon: "image_1ffae0.jpg" });
+                }
+
+                if (confirm(`🚨 DESPERTADOR: ${t.titulo}\n\nClique OK para desligar o som.`)) {
+                    som.pause();
+                    som.currentTime = 0;
+                    t.notificado = true;
+                    localStorage.setItem("agendaPessoal", JSON.stringify(agenda));
+                }
+            }
+        });
+    }, 15000); // Checa a cada 15 segundos
+
+    document.getElementById("notasArea").value = localStorage.getItem("notasPessoais") || "";
     gerarCalendario();
     mostrarDia(dataSelecionada);
 </script>
