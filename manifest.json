@@ -1,0 +1,16 @@
+{
+  "name": "Agenda Pessoal Pro",
+  "short_name": "Agenda",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0d0f12",
+  "theme_color": "#ff9800",
+  "icons": [
+    {
+      "src": "image_1ffae0.jpg",
+      "sizes": "1024x1024",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
