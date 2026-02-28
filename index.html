@@ -3,167 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#080a10">
+    <meta name="theme-color" content="#101010">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Agenda Cyber-Tech Pro</title>
+    <title>Agenda Minimalista - Creative & Taste</title>
     
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="image_1ffae0.jpg">
     <link rel="icon" href="image_1ffae0.jpg">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg: #080a10; /* Fundo mais escuro */
-            --card: #10141d; /* Painéis levemente azulados */
-            --accent: #ffb400; /* Laranja Neon Gold */
-            --accent-glow: rgba(255, 180, 0, 0.4);
-            --text: #d0e0f0; /* Texto azulado frio */
-            --text-secondary: #8090a0;
-            --border: #1f293a; /* Bordas mais visíveis e frias */
-            --urgent: #ff3e3e; /* Vermelho mais agressivo */
-            --urgent-glow: rgba(255, 62, 62, 0.5);
-            --important: #00e5ff; /* Ciano Elétrico */
-            --important-glow: rgba(0, 229, 255, 0.5);
-            --done: #405060;
+            --bg: #101010; /* Cinza Grafite Quase Preto */
+            --card: #181818; /* Painéis sutis */
+            --accent: #b08d57; /* Dourado Ocre Sofisticado */
+            --text: #e0e0e0; /* Branco Gelo Confortável */
+            --text-secondary: #888888;
+            --border: #252525; /* Bordas muito finas */
+            --urgent: #cc3333; /* Vermelho discreto */
+            --concluido: #404040;
         }
 
-        * { box-sizing: border-box; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; /* Fonte Monoespacada */ }
-        body { margin: 0; background: var(--bg); color: var(--text); padding: 15px; position: relative; }
-
-        /* Efeito de Scanlines de Fundo */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px;
-            z-index: -1;
-            pointer-events: none;
-        }
+        * { box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+        body { margin: 0; background: var(--bg); color: var(--text); padding: 15px; }
 
         .layout { display: grid; grid-template-columns: 320px 1fr 300px; gap: 20px; max-width: 1600px; margin: auto; }
 
-        /* Painéis Tecnológicos */
+        /* Painéis Minimalistas */
         .box { 
             background: var(--card); 
             border: 1px solid var(--border); 
-            border-radius: 4px; /* Cantos menos arredondados */
+            border-radius: 8px; /* Cantos suaves */
             padding: 20px; 
-            box-shadow: 0 0 15px rgba(0,0,0,0.5), inset 0 0 5px rgba(0,0,0,0.2); 
-            position: relative;
-            overflow: hidden;
-        }
-        /* Decorativo Angular nos cantos */
-        .box::before {
-            content: "";
-            position: absolute;
-            top: -5px; right: -5px; width: 10px; height: 10px;
-            background: var(--accent);
-            transform: rotate(45deg);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); 
+            transition: all 0.2s ease;
         }
 
         h3 { 
             margin-top: 0; 
             color: var(--accent); 
-            font-size: 1rem; 
-            border-bottom: 2px solid var(--border); 
-            padding-bottom: 12px; 
-            letter-spacing: 1px;
+            font-size: 0.9rem; 
+            font-weight: 600;
             text-transform: uppercase;
-            text-shadow: 0 0 5px var(--accent-glow);
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid var(--border); 
+            padding-bottom: 12px; 
             display: flex; align-items: center; gap: 10px;
         }
 
-        /* Inputs e Botões Cyber-Tech */
+        /* Inputs e Botões Minimalistas */
         input, textarea, select, button { 
-            width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 2px; /* Reto */
+            width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 4px; 
             border: 1px solid var(--border); 
-            background: rgba(0, 0, 0, 0.4); 
-            color: var(--important); /* Texto interno ciano */
+            background: rgba(255, 255, 255, 0.03); 
+            color: var(--text); 
             outline: none;
+            font-size: 0.9rem;
             transition: all 0.2s ease;
         }
         input:focus, textarea:focus, select:focus { 
-            border-color: var(--important); 
-            box-shadow: 0 0 10px var(--important-glow);
+            border-color: var(--accent); 
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        /* Botão Tático */
+        /* Botão Premium */
         button { 
-            background: transparent; 
-            color: var(--accent); 
-            font-weight: bold; 
-            border: 1px solid var(--accent); 
+            background: var(--accent); 
+            color: #101010; 
+            font-weight: 600; 
+            border: none; 
             cursor: pointer; 
             text-transform: uppercase;
             letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
+            font-size: 0.85rem;
+            transition: opacity 0.2s;
         }
-        button:hover { 
-            background: var(--accent); 
-            color: #000; 
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-        /* Animação de varredura no hover */
-        button::after {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-        button:hover::after { left: 100%; }
+        button:hover { opacity: 0.9; }
+        button:active { transform: scale(0.98); }
 
-        /* Calendário Digital */
+        /* Calendário Limpo */
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
         .day { 
-            background: #0d1117; padding: 8px; min-height: 80px; border-radius: 2px; 
-            cursor: pointer; position: relative; font-size: 0.85rem; border: 1px solid var(--border);
+            background: transparent; padding: 10px; min-height: 80px; border-radius: 4px; 
+            cursor: pointer; position: relative; font-size: 0.9rem; border: 1px solid transparent;
             color: var(--text-secondary);
             transition: all 0.2s;
         }
-        .day:hover { background: rgba(255,255,255,0.05); border-color: #405060; }
-        .today { border: 2px solid var(--important) !important; color: var(--important); box-shadow: 0 0 8px var(--important-glow); }
+        .day:hover { background: rgba(255,255,255,0.03); }
+        .today { border: 1px solid var(--accent) !important; color: var(--accent); }
         .selected { 
-            background: rgba(255, 180, 0, 0.1) !important; 
+            background: rgba(176, 141, 87, 0.1) !important; 
             border: 1px solid var(--accent) !important; 
             color: var(--accent);
-            box-shadow: 0 0 10px var(--accent-glow);
-            animation: pulseActive 1.5s infinite;
+            font-weight: 600;
         }
-        @keyframes pulseActive { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
         
-        .dot { height: 5px; width: 5px; background: var(--accent); border-radius: 50%; position: absolute; bottom: 6px; right: 6px; box-shadow: 0 0 5px var(--accent); }
+        .dot { height: 4px; width: 4px; background: var(--accent); border-radius: 50%; position: absolute; bottom: 8px; right: 8px; }
 
-        /* Lista de Compromissos Táticos */
+        /* Lista de Compromissos Minimalista */
         .item { 
-            background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 2px; margin-bottom: 10px; 
-            display: flex; align-items: flex-start; gap: 12px; border-left: 3px solid #30363d;
-            border-bottom: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.02); padding: 15px; border-radius: 4px; margin-bottom: 12px; 
+            display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--border);
             transition: 0.2s;
         }
-        .item:hover { border-bottom-color: var(--border); }
+        .item:hover { border-color: #303030; }
         
-        .item.urgente { border-left-color: var(--urgent); box-shadow: inset 5px 0 10px -5px var(--urgent-glow); }
-        .item.importante { border-left-color: var(--important); box-shadow: inset 5px 0 10px -5px var(--important-glow); }
-        .item.concluido { opacity: 0.3; text-decoration: line-through; filter: grayscale(1); }
+        .item.urgente { border-left: 3px solid var(--urgent); }
+        .item.concluido { opacity: 0.2; text-decoration: line-through; filter: grayscale(1); }
         
-        .item-content { flex: 1; color: var(--text); }
-        .item-time { color: var(--accent); font-weight: bold; text-shadow: 0 0 5px var(--accent-glow); }
+        .item-content { color: var(--text); font-size: 0.95rem; }
+        .item-time-prioridade { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-secondary); }
+        .item-time { color: var(--accent); font-weight: 600; }
 
-        .btn-check { width: auto; background: none; color: var(--important); border: 1px solid var(--important); padding: 4px 8px; font-size: 0.8rem; }
-        .btn-check:hover { background: var(--important); color: #000; }
+        .btn-check { width: auto; background: none; color: var(--accent); border: 1px solid var(--accent); padding: 4px 8px; font-size: 0.75rem; margin: 0; }
+        .btn-check:hover { background: var(--accent); color: #101010; }
 
-        #notasArea { height: 180px; resize: none; background: rgba(0,0,0,0.5); border: 1px dashed var(--border); color: #80c0ff; }
+        #notasArea { height: 180px; resize: none; border-style: dashed; }
 
         /* Responsividade para Celular */
         @media (max-width: 1000px) { 
             .layout { grid-template-columns: 1fr; }
-            .day { min-height: 60px; }
+            .day { min-height: 60px; padding: 5px; }
         }
     </style>
 </head>
@@ -171,36 +135,38 @@
 
 <div class="layout">
     <div class="box">
-        <h3><i class="fas fa-satellite-dish"></i> UP-LINK DADOS</h3>
+        <h3>➕ Novo Registro</h3>
         <input type="date" id="data">
         <input type="time" id="hora">
-        <input type="text" id="titulo" placeholder="ENTRADA TÍTULO">
+        <input type="text" id="titulo" placeholder="Cliente ou Serviço">
         <select id="prioridade">
-            <option value="normal">☕ ROTINA</option>
-            <option value="importante">⭐ PRIORIDADE</option>
-            <option value="urgente">🔥 CRÍTICO</option>
+            <option value="normal">👤 Pessoal</option>
+            <option value="importante">📸 Foto_Pro</option>
+            <option value=" burger">🍔 Mão na Brasa</option>
+            <option value="video">🎥 Vídeo / Reels</option>
+            <option value="urgente">🔥 Urgente</option>
         </select>
-        <textarea id="obs" placeholder="DADOS ADICIONAIS..."></textarea>
-        <button onclick="adicionar()"><i class="fas fa-microchip"></i> PROCESSAR REGISTRO</button>
-        <button id="installBtn" style="display:none; margin-top:10px; border-color:var(--important); color:var(--important);">📥 INSTALAR PROTOCOLO</button>
+        <textarea id="obs" placeholder="Detalhes importantes..."></textarea>
+        <button onclick="adicionar()">Salvar na Agenda</button>
+        <button id="installBtn" style="display:none; margin-top:10px; background:#444; color:white;">📥 Instalar App</button>
         
         <div style="margin-top: 25px;">
-            <h3><i class="fas fa-sticky-note"></i> BUFFER NOTAS</h3>
-            <textarea id="notasArea" placeholder="MEMÓRIA VOLÁTIL..." oninput="salvarNotas()"></textarea>
+            <h3>📝 Notas Rápidas</h3>
+            <textarea id="notasArea" placeholder="Anotações voláteis..." oninput="salvarNotas()"></textarea>
         </div>
     </div>
 
     <div class="box">
         <div class="cal-header">
-            <button onclick="mudarMes(-1)" style="width: auto;">◀</button>
-            <h2 id="mesAno" style="margin:0; font-size: 1.1rem; text-transform:uppercase; letter-spacing:1px; text-shadow:0 0 5px var(--accent-glow);"></h2>
-            <button onclick="mudarMes(1)" style="width: auto;">▶</button>
+            <button onclick="mudarMes(-1)" style="width: auto; background:none; color:var(--text)">◀</button>
+            <h2 id="mesAno" style="margin:0; font-size: 1rem; text-transform:uppercase; letter-spacing:1px;"></h2>
+            <button onclick="mudarMes(1)" style="width: auto; background:none; color:var(--text)">▶</button>
         </div>
         <div class="grid" id="calendario"></div>
     </div>
 
     <div class="box">
-        <h3 id="tituloLista"><i class="fas fa-list-ul"></i> OPERAÇÕES</h3>
+        <h3 id="tituloLista">📅 Compromissos do Dia</h3>
         <div id="listaTarefas"></div>
     </div>
 </div>
@@ -259,6 +225,7 @@
         agenda.push({ id: Date.now(), data, hora: document.getElementById("hora").value, titulo, prioridade: document.getElementById("prioridade").value, obs: document.getElementById("obs").value, concluido: false, notificado: false });
         salvar();
         document.getElementById("titulo").value = "";
+        document.getElementById("obs").value = "";
     }
 
     function toggleConcluir(id) {
@@ -268,7 +235,7 @@
     }
 
     function excluir(id) {
-        if(confirm("Apagar?")) { agenda = agenda.filter(a => a.id !== id); salvar(); }
+        if(confirm("Deseja apagar este lembrete?")) { agenda = agenda.filter(a => a.id !== id); salvar(); }
     }
 
     function mudarMes(v) { 
@@ -292,7 +259,7 @@
             const div = document.createElement("div");
             div.className = "day" + (dataStr === dataSelecionada ? " selected" : "");
             if (dataStr === hoje.toISOString().split('T')[0]) div.classList.add("today");
-            div.innerHTML = `<b>${dia.toString().padStart(2, '0')}</b>`;
+            div.innerHTML = `<b>${dia}</b>`;
             if (temCoisa) div.innerHTML += `<span class="dot"></span>`;
             div.onclick = () => { dataSelecionada = dataStr; gerarCalendario(); mostrarDia(dataStr); };
             cal.appendChild(div);
@@ -302,17 +269,23 @@
     function mostrarDia(data) {
         const lista = document.getElementById("listaTarefas");
         const itens = agenda.filter(a => a.data === data).sort((a,b) => a.hora.localeCompare(b.hora));
-        document.getElementById("tituloLista").innerHTML = `<i class="fas fa-calendar-day"></i> ${data.split("-").reverse().join(".")}`;
-        lista.innerHTML = itens.length ? "" : "<p style='text-align:center; color:#444; font-size:0.8rem;'>NO_OPERATIONS_PENDING</p>";
+        document.getElementById("tituloLista").innerHTML = `📅 Dia ${data.split("-").reverse().join(".")}`;
+        lista.innerHTML = itens.length ? "" : "<p style='text-align:center; color:#555; font-size:0.8rem;'>Dia Livre</p>";
         itens.forEach(i => {
             lista.innerHTML += `
                 <div class="item ${i.prioridade} ${i.concluido ? 'concluido' : ''}">
-                    <div class="item-content">
-                        <span class="item-time"><i class="fas fa-clock"></i> ${i.hora || '--:--'}</span> | 
-                        <b>${i.titulo}</b>
+                    <div class="item-time-prioridade">
+                        <span class="item-time">${i.hora || '--:--'}</span>
+                        <span>${i.prioridade.toUpperCase()}</span>
                     </div>
-                    <button class="btn-check" onclick="toggleConcluir(${i.id})">${i.concluido ? '<i class="fas fa-undo"></i>' : '<i class="fas fa-check"></i>'}</button>
-                    <button onclick="excluir(${i.id})" style="width:auto; background:none; color:var(--urgent); border:none; padding:4px;"><i class="fas fa-trash-alt"></i></button>
+                    <div class="item-content">
+                        <b>${i.titulo}</b>
+                        ${i.obs ? `<div style="font-size:0.8rem; color:#888; margin-top:4px;">${i.obs}</div>` : ''}
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                        <button class="btn-check" onclick="toggleConcluir(${i.id})">${i.concluido ? '🔙 REABRIR' : '✅ CONCLUIR'}</button>
+                        <button onclick="excluir(${i.id})" style="width:auto; background:none; color:var(--urgent); border:none; padding:4px; font-size:0.8rem;">🗑️ APAGAR</button>
+                    </div>
                 </div>`;
         });
     }
@@ -324,7 +297,7 @@
         const dataHoje = agora.toISOString().split('T')[0];
         agenda.forEach(t => {
             if (!t.concluido && !t.notificado && t.data === dataHoje && t.hora === horaAtual) {
-                if (Notification.permission === "granted") new Notification("⏰ PROTOCOLO ATIVO: " + t.titulo);
+                if (Notification.permission === "granted") new Notification("⏰ Lembrete: " + t.titulo);
                 document.getElementById("notifSound").play().catch(() => {});
                 t.notificado = true;
                 localStorage.setItem("agendaPessoal", JSON.stringify(agenda));
